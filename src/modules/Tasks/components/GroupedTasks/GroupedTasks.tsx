@@ -1,15 +1,16 @@
 import { ProgressBar } from "~/components";
-import { GroupedTask } from "~/modules/Tasks/types/tasks";
 import GroupTask from "./GroupTask/GroupTask";
+import useTasksStore from "~/modules/Tasks/store/useTasksStore";
 
 import styles from "./GroupedTasks.module.scss";
 
 interface GroupedTasksProps {
   title: string;
-  groupedTasks: GroupedTask[];
 }
 
-const GroupedTasks = ({ title, groupedTasks }: GroupedTasksProps) => {
+const GroupedTasks = ({ title }: GroupedTasksProps) => {
+  const { groupedTasks } = useTasksStore();
+
   return (
     <div className={styles.groupedTasks}>
       <div className={styles.groupedTasks__header}>
@@ -18,8 +19,13 @@ const GroupedTasks = ({ title, groupedTasks }: GroupedTasksProps) => {
       </div>
 
       <div className={styles.groupedTasks__content}>
-        {groupedTasks.map((groupedTask) => (
-          <GroupTask key={groupedTask.name} name={groupedTask.name} />
+        {groupedTasks.map((groupedTask, index) => (
+          <GroupTask
+            key={groupedTask.name}
+            name={groupedTask.name}
+            tasks={groupedTask.tasks}
+            isLast={index === groupedTasks.length - 1}
+          />
         ))}
       </div>
     </div>

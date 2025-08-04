@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { GroupedTask } from "~/modules/Tasks/types/tasks";
 import { GroupedTasks } from "~/modules/Tasks/components";
+import useTasksStore from "~/modules/Tasks/store/useTasksStore";
 
 import styles from "./GroupedTasksDemo.module.scss";
 
@@ -10,20 +11,17 @@ const TASKS_URL =
 
 const GroupedTasksDemo = () => {
   const intl = useIntl();
-  const [groupedTasks, setGroupedTasks] = useState<GroupedTask[]>([]);
+  const setGroupedTasks = useTasksStore((state) => state.setGroupedTasks);
 
   useEffect(() => {
     fetch(TASKS_URL)
       .then((res) => res.json())
       .then((data: GroupedTask[]) => setGroupedTasks(data));
-  }, []);
+  }, [setGroupedTasks]);
 
   return (
     <div className={styles.groupedTasksDemo}>
-      <GroupedTasks
-        title={intl.formatMessage({ id: "grouped.tasks" })}
-        groupedTasks={groupedTasks}
-      />
+      <GroupedTasks title={intl.formatMessage({ id: "grouped.tasks" })} />
     </div>
   );
 };

@@ -1,12 +1,35 @@
 @use "~/assets/css/variables.scss";
 
 .groupTask {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 30px 24px;
-  border-bottom: 1px solid variables.$color-gray4;
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 30px 24px;
+    border-bottom: 1px solid variables.$color-gray4;
+    cursor: pointer;
+
+    &:hover {
+      background-color: variables.$color-gray1;
+    }
+
+    &--last,
+    &--expanded {
+      border-bottom: 0px;
+    }
+
+    &--completed {
+      color: variables.$color-green2;
+      .groupTask__titleText {
+        color: variables.$color-green2;
+      }
+
+      .groupTask__titleIcon svg {
+        fill: variables.$color-green2;
+      }
+    }
+  }
 
   &__title {
     display: flex;
@@ -20,12 +43,11 @@
     }
 
     &Icon {
-      color: variables.$color-gray5;
+      fill: variables.$color-text-black3;
     }
   }
 
   &__action {
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
