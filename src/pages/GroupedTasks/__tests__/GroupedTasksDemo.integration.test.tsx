@@ -1,9 +1,9 @@
 import { describe, expect, it, beforeAll, afterEach, afterAll } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import { renderWithIntl } from "~/tests/test-utils";
-import { getServer } from "./__tests__/mockServer";
-import { groupedTasksMock } from "./__tests__/mockData";
-import GroupedTasksDemo from "./GroupedTasksDemo";
+import { getServer } from "./mockServer";
+import { groupedTasksMock } from "./mockData";
+import GroupedTasksDemo from "../GroupedTasksDemo";
 import { getTasksProgress } from "~/modules/Tasks/helpers/getTasksProgress";
 
 const server = getServer();
