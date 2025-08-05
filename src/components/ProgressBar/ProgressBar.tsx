@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import classNames from "classnames";
 
 import styles from "./ProgressBar.module.scss";
 
@@ -13,12 +14,18 @@ const ProgressBar = ({ progress }: ProgressBarProps) => {
     progressRef.current?.style.setProperty("--progress-width", `${progress}%`);
   }, [progress]);
 
-  console.log(progress);
-
   return (
     <div className={styles.progressBar}>
       <div ref={progressRef} className={styles.progressBar__progress}>
-        <span className={styles.progressBar__progressValue}>{progress}%</span>
+        {progress > 0 && (
+          <span
+            className={classNames(styles.progressBar__progressValue, {
+              [styles["progressBar__progressValue--outside"]]: progress < 10,
+            })}
+          >
+            {progress}%
+          </span>
+        )}
       </div>
     </div>
   );

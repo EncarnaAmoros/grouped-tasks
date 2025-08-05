@@ -1,6 +1,9 @@
+import { useEffect } from "react";
+import { useShallow } from "zustand/shallow";
+import useTasksStore from "~/modules/Tasks/store/useTasksStore";
+import { getTasksProgress } from "~/modules/Tasks/helpers/getTasksProgress";
 import { ProgressBar } from "~/components";
 import GroupTask from "./GroupTask/GroupTask";
-import useTasksStore from "~/modules/Tasks/store/useTasksStore";
 
 import styles from "./GroupedTasks.module.scss";
 
@@ -9,13 +12,23 @@ interface GroupedTasksProps {
 }
 
 const GroupedTasks = ({ title }: GroupedTasksProps) => {
-  const { groupedTasks } = useTasksStore();
+  const { groupedTasks, progress, setProgress } = useTasksStore(
+    useShallow((state) => ({
+      groupedTasks: state.groupedTasks,
+      progress: state.progress,
+      setProgress: state.setProgress,
+    }))
+  );
+
+  useEffect(() => {
+    setProgress(getTasksProgress(groupedTasks));
+  }, [groupedTasks, setProgress]);
 
   return (
     <div className={styles.groupedTasks}>
       <div className={styles.groupedTasks__header}>
         <h1 className={styles.groupedTasks__title}>{title}</h1>
-        <ProgressBar progress={60} />
+        <ProgressBar progress={progress} />
       </div>
 
       <div className={styles.groupedTasks__content}>

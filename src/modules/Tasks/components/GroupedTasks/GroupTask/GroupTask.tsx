@@ -32,9 +32,7 @@ const GroupTask = ({ name, icon, tasks, isLast }: GroupTaskProps) => {
         })}
       >
         <div className={styles.groupTask__title}>
-          <div className={styles.groupTask__titleIcon}>
-            {icon || <TaskIcon />}
-          </div>
+          {icon || <TaskIcon className={styles.groupTask__titleIcon} />}
           <span className={styles.groupTask__titleText}>{name}</span>
         </div>
 

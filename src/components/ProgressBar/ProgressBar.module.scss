@@ -28,5 +28,11 @@
     align-items: center;
     justify-content: flex-end;
     margin-right: 16px;
+
+    &--outside {
+      color: variables.$color-green3;
+      justify-content: flex-start;
+      padding-left: 8px;
+    }
   }
 }

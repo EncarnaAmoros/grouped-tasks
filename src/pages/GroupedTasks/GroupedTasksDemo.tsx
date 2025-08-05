@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useIntl } from "react-intl";
 import { GroupedTask } from "~/modules/Tasks/types/tasks";
 import { GroupedTasks } from "~/modules/Tasks/components";
@@ -13,11 +13,15 @@ const GroupedTasksDemo = () => {
   const intl = useIntl();
   const setGroupedTasks = useTasksStore((state) => state.setGroupedTasks);
 
-  useEffect(() => {
-    fetch(TASKS_URL)
-      .then((res) => res.json())
-      .then((data: GroupedTask[]) => setGroupedTasks(data));
+  const getTasksData = useCallback(async () => {
+    const response = await fetch(TASKS_URL);
+    const data: GroupedTask[] = await response.json();
+    setGroupedTasks(data);
   }, [setGroupedTasks]);
+
+  useEffect(() => {
+    getTasksData();
+  }, [getTasksData]);
 
   return (
     <div className={styles.groupedTasksDemo}>
