@@ -20,7 +20,7 @@ const ProgressBar = ({ progress }: ProgressBarProps) => {
         {progress > 0 && (
           <span
             className={classNames(styles.progressBar__progressValue, {
-              [styles["progressBar__progressValue--outside"]]: progress < 10,
+              [styles["progressBar__progressValue--outside"]]: progress < 5,
             })}
           >
             {progress}%
